@@ -2,6 +2,7 @@
 
 ## 25/11/2026 Basic 2D Renderer
 Establish a working WebGL 2 renderer before introducing configurable blending
+Current progress picture can be seen under "/Development/DEV1.png"
 
 ## Constraints
 - Browser-compatible, with no external application libraries

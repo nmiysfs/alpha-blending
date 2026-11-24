@@ -10,7 +10,7 @@ An interactive 2D graphics project exploring opacity, blending functions and ren
 HTML, CSS, JavaScript, WebGL 2 and GLSL ES 3.0
 
 # How to Run
-https://github.com/nmiysfs/alpha-blending/settings/pages
+https://nmiysfs.github.io/alpha-blending/
 OR
 (for dev)
 1. Open the project folder in VS Code
