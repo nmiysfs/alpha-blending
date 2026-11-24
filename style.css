@@ -1,0 +1,29 @@
+/**
+File    style.css
+brief   defines the application layout and canvas display size
+note:
+hexadecimal colors follow the format #RRGGBB
+*/
+
+/*configure the appearance of the entire webpage*/
+body{
+    margin: 0;/*removes default browser margins*/
+    background: #181818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+/*centre the main app content within the webpage*/
+main{
+    max-width: 600px;
+    margin:32px auto;/*adds vertical spacing&horizontally centres main content*/
+    padding: 16px;
+}
+
+/*configure the displayed size of the WebGL drawing surface*/
+canvas{
+    display: block;
+    width: 100%;
+    height: auto;/*preserve the drawing buffers aspect ratio*/
+    background: #000000;
+}

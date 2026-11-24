@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+File    index.html
+brief   defines the application interface and WebGL drawing interface
+-->
+
+<html lang="en">
+
+<head>
+    <!--set the character encoding and support different screen sizes-->
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="width=device-width,initial-scale=1.0">
+    <title>Alpha Blending</title>
+
+    <!--load the stylesheet and run js after html is parsed-->
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <h1>Alpha Blending</h1>
+        <p>A 2D demonstration using WebGL 2</p>
+
+        <!--drawing surface used by WebGL-->
+        <canvas id="glCanvas" width="600" height="360">
+            Your browser does not support canvas
+        </canvas>
+
+        <!--displays renderer initializaton and error messages-->
+        <p id="status" role="status">Initializing renderer...</p>
+    </main>
+</body>
+</html>
