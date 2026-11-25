@@ -47,3 +47,37 @@ fieldset input[type="range"] {
     width: 100%;
     margin:4px 0;
 }
+
+/*keep the equation and explanation readable*/
+#blendInfo {
+    padding: 12px;
+    background: #242424;
+    overflow-wrap:anywhere;
+}
+
+/*configure the heading within the blending info section*/
+#blendInfo h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+#blendEquation{
+    font-weight: bold;
+}
+
+/*prevent dropdown from exceeding the container width*/
+fieldset select {
+    max-width: 100%;
+}
+
+/*format terminology legend*/
+#blendInfo h3{
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+blendInfo ul{
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}

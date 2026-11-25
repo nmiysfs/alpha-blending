@@ -10,6 +10,11 @@ const opacityA = document.getElementById("opacityA");
 const opacityB = document.getElementById("opacityB");
 const blendMode = document.getElementById("blendMode");
 const reverseOrder = document.getElementById("reverseOrder");
+const opacityAValue = document.getElementById("opacityAValue");
+const opacityBValue = document.getElementById("opacityBValue");
+const blendEquation = document.getElementById("blendEquation");
+const blendFactors = document.getElementById("blendFactors");
+const blendExplanation = document.getElementById("blendExplanation");
 
 let gl;
 let program;
@@ -160,6 +165,29 @@ function drawRectangle(first, color, opacity) {
 }
 
 /**
+ updateDisplay
+ updates the opacity values and explains the selected RGB blending mode
+ */
+function updateDisplay(alphaA, alphaB){
+    opacityAValue.textContent =alphaA.toFixed(2);
+    opacityBValue.textContent =alphaB.toFixed(2);
+
+    if(blendMode.value === "disabled"){
+        blendEquation.textContent = "Cout = Cs";
+        blendFactors.textContent= "BLEND disabled";
+        blendExplanation.textContent= "Source RGB replaces destination RGB regardless of opacity.";
+    } else if(blendMode.value ==="additive"){
+        blendEquation.textContent = "Cout = Cs * As + Cd";
+        blendFactors.textContent = "SRC_ALPHA, ONE(FUNC_ADD)";
+        blendExplanation.textContent= "Source RGB is weighted by alpha and added to the destination. Reversing order gives the same theoretical RGB result.";
+    } else {
+        blendEquation.textContent = "Cout = Cs * As + Cd * (1 - As)";
+        blendFactors.textContent = "SRC_ALPHA, ONE_MINUS_SRC_ALPHA(FUNC_ADD)";
+        blendExplanation.textContent ="The incoming color is weighted by its opacity, and the existing color by one minus that opacity. Drawing order can change the overlap color.";
+    }
+}
+
+/**
 draw
 clears the framebuffer and draws both rectangles in the selected order
 */
@@ -188,6 +216,7 @@ function draw() {
     }
 
     gl.bindVertexArray(null);
+    updateDisplay(alphaA, alphaB);
 }
 
 /**

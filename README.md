@@ -2,30 +2,26 @@
 An interactive 2D graphics project exploring opacity, blending functions and rendering order using WebGL 2
 
 # Current Features
-- independent opacity adjustment for two overlapping rectangles
-- standard alpha, additive and disabled blending modes
+- Independent opacity controls for 2 overlapping rectangles
+- Standard alpha, additive and disabled blending modes
 - Reversible drawing order
-- Separate vertex and fragment shaders
-- Shader loading and compilation error reporting
+- Dynamic opacity values and blending equations
 
 # Technologies
-HTML, CSS, JavaScript, WebGL 2 and GLSL ES 3.0
+HTML, CSS, JavaScript, WebGL 2 and GLSL ES 300
 
 # How to Run
 https://nmiysfs.github.io/alpha-blending/
-# OR
-(for dev)
-1. Open the project folder in VS Code
-2. Install the Live Server extension(Name: Live Server
-Id: ritwickdey.LiveServer
-Description: Launch a development local Server with live reload feature for static & dynamic pages
-Version: 5.7.10
-Publisher: Ritwick Dey
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-3. Right-click index.html and select Open with Live Server/Integrated Browser
+Requires a WebGL 2-compatible browser
 
 Requires a WebGL 2-compatible browser 
 No build system or external application libraries are required
+
+# Implementation
+Both rectangles share a vertex buffer, VAO and shader program
+Straight-alpha RGBA values are submitted through a uniform, with blending performed by the GPU
+
+Geometry and colours are fixed to focus on blending behaviour
 
 # Development
 Interactive alpha blending

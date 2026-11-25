@@ -20,7 +20,7 @@ brief   defines the application interface and WebGL drawing interface
 <body>
     <main>
         <h1>Alpha Blending</h1>
-        <p>A 2D demonstration using WebGL 2</p>
+        <p>Explore how opacity, blending modes, and drawing order affect overlapping fragments using WebGL 2</p>
 
         <!--drawing surface used by WebGL-->
         <canvas id="glCanvas" width="600" height="360">
@@ -31,24 +31,51 @@ brief   defines the application interface and WebGL drawing interface
         <fieldset id="controls" disabled>
             <legend>Blending controls</legend>
 
-            <label for="opacityA">Rectangle A opacity(red)</label>
+            <label for="opacityA">Rectangle A opacity(red) :
+                <output id="opacityAValue" for="opacityA">0.50</output>
+            </label>
             <input id="opacityA" type="range" min="0" max="1" step="0.01" value="0.5">
 
-            <label for="opacityB">Rectangle B opacity(blue)</label>
+            <label for="opacityB">Rectangle B opacity(blue) :
+                <output id="opacityBValue" for="opacityB">0.50</output></label>
             <input id="opacityB" type="range" min="0" max="1" step="0.01" value="0.5">
 
             <label for="blendMode">Blending mode</label>
             <select id="blendMode">
                 <option value="alpha">Standard alpha blending</option>
                 <option value="additive">Additive blending</option>
-                <option value="disabled">Blending disabled(Opacity change disabled)</option>
+                <option value="disabled">Blending disabled</option>
             </select>
 
             <label>
                 <input id="reverseOrder" type="checkbox">
-                Reverse draw order(B before A)
+                Reverse draw order (B before A)
             </label>
         </fieldset>
+
+        <!--display the active RGB eqn and its meaning-->
+        <section id="blendInfo">
+            <h2>Active blending equation</h2>
+            <p id="blendEquation">Waiting for renderer...</p>
+            <p id="blendFactors"></p>
+            <p id="blendExplanation"></p>
+            <!--explain mathematical notation and WebGL blending constraints-->
+            <h3>Equation notation</h3>
+            <ul>
+                <li><strong>Cs:</strong> Source RGB color of the incoming fragment</li>
+                <li><strong>Cd:</strong> Destination RGB color already stored in the framebuffer</li>
+                <li><strong>As:</strong> Source alpha(opacity). Ranging from 0 to 1</li>
+                <li><strong>Cout:</strong> Resulting RGB color after blending</li>
+            </ul>
+
+            <h3>WebGL blend factors and operation</h3>
+            <ul>
+                <li><strong>SRC_ALPHA</strong> Multiply by source opacity(As)</li>
+                <li><strong>ONE_MINUS_SRC_ALPHA</strong> Multiply by 1 minus source opacity(1 - As)</li>
+                <li><strong>ONE:</strong> Retain the full color contribution</li>
+                <li><strong>FUNC_ADD</strong> Add the weighted source and destination colors</li>
+            </ul>
+        </section>
 
         <!--displays renderer initializaton and error messages-->
         <p id="status" role="status">Initializing renderer...</p>
