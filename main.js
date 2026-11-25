@@ -1,10 +1,15 @@
 /**
 File    main.js
-brief   initializes WebGL2 and draws 2 overlapping opaque rectangles
+brief   rennders 2 overlapping rectangles with configurable blending
 */
 
 const canvas = document.getElementById("glCanvas");
 const statusText = document.getElementById("status");
+const controls = document.getElementById("controls");
+const opacityA = document.getElementById("opacityA");
+const opacityB = document.getElementById("opacityB");
+const blendMode = document.getElementById("blendMode");
+const reverseOrder = document.getElementById("reverseOrder");
 
 let gl;
 let program;
@@ -121,24 +126,66 @@ function initGeometry() {
 }
 
 /**
+configureBlending
+sets the blending state and factors for the selected mode
+ */
+function configureBlending(){
+    if(blendMode.value === "disabled"){
+        gl.disable(gl.BLEND);
+        return;
+    }
+
+    gl.enable(gl.BLEND);
+    gl.blendEquation(gl.FUNC_ADD);
+
+    //both enabled modes use source alpha but differ in destination weighting
+    if(blendMode.value === "additive"){
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+    } else{
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    }
+}
+
+/**
+drawRectangle
+sets the RGBA unifor&draws one rectangle
+parameters:
+- first     index of first vertex
+- color     RGB color array
+- opacity   alpha value(0-1)
+*/
+function drawRectangle(first, color, opacity) {
+    gl.uniform4f(colorLocation, color[0], color[1], color[2], opacity);
+    gl.drawArrays(gl.TRIANGLES, first, 6);
+}
+
+/**
 draw
-clears the framebuffer and draws both rectangles in a fixed order
+clears the framebuffer and draws both rectangles in the selected order
 */
 function draw() {
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.disable(gl.BLEND);
+    configureBlending();
     gl.useProgram(program);
     gl.bindVertexArray(vertexArray);
 
-    //draw rectangle A(red)
-    gl.uniform3f(colorLocation, 1.0, 0.0, 0.0);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);    
-    //draw rectangle B(blue)
-    gl.uniform3f(colorLocation, 0.0, 0.0, 1.0);
-    gl.drawArrays(gl.TRIANGLES, 6, 6);
+    //read the slider values as numbers
+    const alphaA = opacityA.valueAsNumber;
+    const alphaB = opacityB.valueAsNumber;
+    const red =[1.0, 0.0, 0.0];
+    const blue =[0.0, 0.0, 1.0];
+
+    //only change submission order, geometry and rectangle colors remain fixed
+    if(reverseOrder.checked){
+        drawRectangle(6, blue, alphaB);
+        drawRectangle(0, red, alphaA);
+    } else{
+        drawRectangle(0, red, alphaA);
+        drawRectangle(6, blue, alphaB);
+    }
 
     gl.bindVertexArray(null);
 }
@@ -171,7 +218,14 @@ async function init(){
         throw new Error("WebGL error: " + error);
     }
 
-    statusText.textContent = "test text";
+    //redraw on input changes instead of running a continuous rendering loop
+    opacityA.addEventListener("input",draw);
+    opacityB.addEventListener("input",draw);
+    blendMode.addEventListener("change", draw);
+    reverseOrder.addEventListener("change", draw);
+
+    controls.disabled = false;
+    statusText.textContent = "Renderer initialized";
 }
 
 //report intialization failures on webpage&in console

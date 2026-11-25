@@ -27,6 +27,29 @@ brief   defines the application interface and WebGL drawing interface
             Your browser does not support canvas
         </canvas>
 
+        <!--controls remain disabled until the renderer is initialized-->
+        <fieldset id="controls" disabled>
+            <legend>Blending controls</legend>
+
+            <label for="opacityA">Rectangle A opacity(red)</label>
+            <input id="opacityA" type="range" min="0" max="1" step="0.01" value="0.5">
+
+            <label for="opacityB">Rectangle B opacity(blue)</label>
+            <input id="opacityB" type="range" min="0" max="1" step="0.01" value="0.5">
+
+            <label for="blendMode">Blending mode</label>
+            <select id="blendMode">
+                <option value="alpha">Standard alpha blending</option>
+                <option value="additive">Additive blending</option>
+                <option value="disabled">Blending disabled(Opacity change disabled)</option>
+            </select>
+
+            <label>
+                <input id="reverseOrder" type="checkbox">
+                Reverse draw order(B before A)
+            </label>
+        </fieldset>
+
         <!--displays renderer initializaton and error messages-->
         <p id="status" role="status">Initializing renderer...</p>
     </main>

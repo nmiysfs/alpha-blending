@@ -27,3 +27,23 @@ canvas{
     height: auto;/*preserve the drawing buffers aspect ratio*/
     background: #000000;
 }
+
+/*space the controls beneath the rendering canvas*/
+fieldset{
+    min-width: 0;
+    margin: 16px 0;
+    padding:12px;
+}
+
+/*place each control label on a seperate line*/
+fieldset label {
+    display:block;
+    margin: 8px 0;
+}
+
+/*configure the opacity sliders without affecting the checkbox*/
+fieldset input[type="range"] {
+    display:block;
+    width: 100%;
+    margin:4px 0;
+}
